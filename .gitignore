@@ -8,3 +8,6 @@ letterbox/TAGS
 build/
 *~
 Debug.xcconfig
+Letters.xcodeproj/project.xcworkspace/*
+letterbox/LetterBox.xcodeproj/xcuserdata/*
+Letters.xcodeproj/xcuserdata/*
