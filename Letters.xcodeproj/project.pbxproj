@@ -537,6 +537,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_NAME = CrashyEmailApp;
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -551,6 +552,7 @@
 				INFOPLIST_FILE = "resources/Letters-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				PRODUCT_NAME = CrashyEmailApp;
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};

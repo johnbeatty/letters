@@ -1194,6 +1194,7 @@
 				GCC_PREFIX_HEADER = source/LetterBox_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DDEBUG";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = LetterBox;
@@ -1211,6 +1212,7 @@
 				GCC_PREFIX_HEADER = source/LetterBox_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = LetterBox;
 				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = framework;
@@ -1227,7 +1229,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "";
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../build;
 			};
 			name = Debug;
@@ -1243,7 +1246,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = "";
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx10.7;
 				SYMROOT = ../build;
 			};
 			name = Release;
