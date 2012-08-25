@@ -11,3 +11,4 @@ Debug.xcconfig
 Letters.xcodeproj/project.xcworkspace/*
 letterbox/LetterBox.xcodeproj/xcuserdata/*
 Letters.xcodeproj/xcuserdata/*
+Letters.xcworkspace/xcuserdata/*
