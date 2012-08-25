@@ -1,0 +1,3 @@
+[submodule "parsekit"]
+	path = parsekit
+	url = git@github.com:johnbeatty/parsekit.git
