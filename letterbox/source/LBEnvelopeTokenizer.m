@@ -7,7 +7,6 @@
 //
 
 #import "LBEnvelopeTokenizer.h"
-#import "TDParseKit.h"
 
 @implementation LBEnvelopeTokenizer
 
@@ -18,6 +17,7 @@
         [self setTokenizerState:wordState       from: '.' to:  '.'];
         [self setTokenizerState:wordState       from: '#' to:  '&'];
         [self setTokenizerState:wordState       from: '*' to: 0xFF];
+        [self.wordState setWordChars:YES        from: '.' to:  '.'];
     }
     
     return self;

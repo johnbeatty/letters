@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TDTokenizer.h"
+#import <ParseKit/ParseKit.h>
 
-@interface LBEnvelopeTokenizer : TDTokenizer {
+@interface LBEnvelopeTokenizer : PKTokenizer {
 
 }
 

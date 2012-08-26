@@ -37,6 +37,7 @@
 #import "TDWhitespaceState.h"
 #import "TDCommentState.h"
 #import "LBNSStringAdditions.h"
+#import <ParseKit/ParseKit.h>
 
 /* direction is 1 for send, 0 for receive, -1 when it does not apply */
 void letterbox_logger(int direction, const char * str, size_t size) {
@@ -291,12 +292,12 @@ NSDictionary* LBParseSimpleFetchResponse(NSString *fetchResponse) {
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
     
     
-    LBEnvelopeTokenizer *tokenizer  = [LBEnvelopeTokenizer tokenizerWithString:fetchResponse];
+    LBEnvelopeTokenizer *tokenizer  = (LBEnvelopeTokenizer *)[LBEnvelopeTokenizer tokenizerWithString:fetchResponse];
     
     //tokenizer.whitespaceState.reportsWhitespaceTokens = YES;
     
-    TDToken *eof                    = [TDToken EOFToken];
-    TDToken *tok                    = 0x00;
+    PKToken * eof                   = [PKToken EOFToken];
+    PKToken *tok                    = 0x00;
     while ((tok = [tokenizer nextToken]) != eof) {
         
         NSString *tokS = [tok stringValue];
@@ -315,16 +316,11 @@ NSDictionary* LBParseSimpleFetchResponse(NSString *fetchResponse) {
             
             [d setObject:flags forKey:tokS];
         }
-        else if ([tokS isEqualToString:@"INTERNALDATE"] || [tokS isEqualToString:@".SIZE"] || [tokS isEqualToString:@"UID"]) {
+        else if ([tokS isEqualToString:@"INTERNALDATE"] || [tokS isEqualToString:@"RFC822.SIZE"] || [tokS isEqualToString:@"UID"]) {
             
             NSString *val = [[tokenizer nextToken] stringValue];
             
             val = [val stringByDeletingEndQuotes];
-            
-            if ([tokS isEqualToString:@".SIZE"]) {
-                #warning seems to be a shortcoming of the parsing kit, that we can't ge a . to be a word.  Fix?
-                tokS = @"RFC822.SIZE"; // seems to be a shortcoming of the parsing kit, that we can't ge a . to be a word.
-            }
             
             [d setObject:val forKey:tokS];
         }
