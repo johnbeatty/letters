@@ -145,7 +145,7 @@ static CFSocketRef closeSocket( CFSocketRef socket ) {
         _ipv4socket = [self _openProtocol: PF_INET address: (struct sockaddr*)&addr4 error: &error];
         if( ! _ipv4socket ) {
             if( error.code==EADDRINUSE && _pickAvailablePort && _port<0xFFFF ) {
-                LogTo(BLIPVerbose,@"%@: port busy, trying %hu...",self,_port+1);
+                LogTo(BLIPVerbose,@"%@: port busy, trying %u...",self,_port+1);
                 self.port += 1;        // try the next port
             } else {
                 if( outError ) *outError = error;
@@ -326,7 +326,7 @@ static void TCPListenerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType t
         if( _bonjourTXTRecord ) {
             data = [NSNetService dataFromTXTRecordDictionary: _bonjourTXTRecord];
             if( data )
-                LogTo(BLIP,@"%@: Set %u-byte TXT record", self,data.length);
+                LogTo(BLIP,@"%@: Set %lu-byte TXT record", self,data.length);
             else
                 Warn(@"TCPListener: Couldn't convert txt dict to data: %@",_bonjourTXTRecord);
         } else
@@ -345,7 +345,7 @@ static void TCPListenerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType t
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
 {
     self.bonjourError = [[errorDict objectForKey:NSNetServicesErrorCode] intValue];
-    LogTo(BLIP,@"%@: Failed to advertise %@: error %i",self,sender,self.bonjourError);
+    LogTo(BLIP,@"%@: Failed to advertise %@: error %li",self,sender,self.bonjourError);
     [_netService release];
     _netService = nil;
 }

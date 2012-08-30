@@ -69,7 +69,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
 - (NSString*)modifyCommandString:(NSString*)commandString {
     commandCount++;
     
-    commandString = [NSString stringWithFormat:@"%d %@", commandCount, commandString];
+    commandString = [NSString stringWithFormat:@"%ld %@", commandCount, commandString];
     
     return commandString;
 }
@@ -91,8 +91,8 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         [self appendDataFromReader:reader];
         
         NSString *firstLine   = [[self responseBytes] lbFirstLine];
-        NSString *expectedBAD = [NSString stringWithFormat:@"%d BAD", commandCount];
-        NSString *expectedNO  = [NSString stringWithFormat:@"%d NO",  commandCount];
+        NSString *expectedBAD = [NSString stringWithFormat:@"%ld BAD", commandCount];
+        NSString *expectedNO  = [NSString stringWithFormat:@"%ld NO",  commandCount];
         
         if ([firstLine hasPrefix:expectedBAD] || [firstLine hasPrefix:expectedNO]) {
             NSError *err;
@@ -107,7 +107,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expectedOK  = [NSString stringWithFormat:@"%d OK",  commandCount];
+        NSString *expectedOK  = [NSString stringWithFormat:@"%ld OK",  commandCount];
         
         if ([lastLine hasPrefix:expectedOK]) {
             
@@ -138,7 +138,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expected = [NSString stringWithFormat:@"%d OK", commandCount];
+        NSString *expected = [NSString stringWithFormat:@"%ld OK", commandCount];
         
         BOOL worked = [res hasPrefix:expected];
         
@@ -172,8 +172,8 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         [self appendDataFromReader:reader];
         
         NSString *firstLine   = [[self responseBytes] lbFirstLine];
-        NSString *expectedBAD = [NSString stringWithFormat:@"%d BAD", commandCount];
-        NSString *expectedNO  = [NSString stringWithFormat:@"%d NO",  commandCount];
+        NSString *expectedBAD = [NSString stringWithFormat:@"%ld BAD", commandCount];
+        NSString *expectedNO  = [NSString stringWithFormat:@"%ld NO",  commandCount];
         
         if ([firstLine hasPrefix:expectedBAD] || [firstLine hasPrefix:expectedNO]) {
             NSError *err;
@@ -189,7 +189,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expectedOK  = [NSString stringWithFormat:@"%d OK",  commandCount];
+        NSString *expectedOK  = [NSString stringWithFormat:@"%ld OK",  commandCount];
         
         if ([lastLine hasPrefix:expectedOK]) {
             
@@ -212,9 +212,9 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         
         [self appendDataFromReader:reader];
         
-        NSString *expected      = [NSString stringWithFormat:@"%d OK", commandCount];
-        NSString *expectedErr   = [NSString stringWithFormat:@"%d NO", commandCount];
-        NSString *expectedBad   = [NSString stringWithFormat:@"%d BAD", commandCount];
+        NSString *expected      = [NSString stringWithFormat:@"%ld OK", commandCount];
+        NSString *expectedErr   = [NSString stringWithFormat:@"%ld NO", commandCount];
+        NSString *expectedBad   = [NSString stringWithFormat:@"%ld BAD", commandCount];
         NSString *lastLine      = [[self responseBytes] lbLastLineOfMultiline];
         
         if ([lastLine hasPrefix:expected]) {
@@ -245,8 +245,8 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         [self appendDataFromReader:reader];
         
         NSString *firstLine     = [[self responseBytes] lbFirstLine];
-        NSString *expectedNo    = [NSString stringWithFormat:@"%d NO", commandCount];
-        NSString *expectedBad   = [NSString stringWithFormat:@"%d BAD", commandCount];
+        NSString *expectedNo    = [NSString stringWithFormat:@"%ld NO", commandCount];
+        NSString *expectedBad   = [NSString stringWithFormat:@"%ld BAD", commandCount];
         
         if ([firstLine hasPrefix:expectedBad] || [firstLine hasPrefix:expectedNo]) {
             NSError *err;
@@ -256,7 +256,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expected = [NSString stringWithFormat:@"%d OK", commandCount];
+        NSString *expected = [NSString stringWithFormat:@"%ld OK", commandCount];
         NSString *lastLine = [[self responseBytes] lbLastLineOfMultiline];
         
         if ([lastLine hasPrefix:expected]) {
@@ -304,9 +304,9 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         [self appendDataFromReader:reader];
         
         NSString *lastLine      = [[self responseBytes] lbFirstLine];
-        NSString *expectedGood  = [NSString stringWithFormat:@"%d OK ", commandCount, CRLF];
-        NSString *expectedBad   = [NSString stringWithFormat:@"%d BAD ", commandCount, CRLF];
-        NSString *expectedErr   = [NSString stringWithFormat:@"%d NO ", commandCount, CRLF];
+        NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK ", commandCount, CRLF];
+        NSString *expectedBad   = [NSString stringWithFormat:@"%ld BAD ", commandCount, CRLF];
+        NSString *expectedErr   = [NSString stringWithFormat:@"%ld NO ", commandCount, CRLF];
         
         if (!([lastLine hasPrefix:expectedGood] || [lastLine hasPrefix:expectedBad] || [lastLine hasPrefix:expectedErr])) {
             return; // we're not done reading yet.  MAYBE
@@ -340,7 +340,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expected = [NSString stringWithFormat:@"%d OK ", commandCount];
+        NSString *expected = [NSString stringWithFormat:@"%ld OK ", commandCount];
         
         BOOL worked = [res hasPrefix:expected];
         
@@ -392,7 +392,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expectedGood  = [NSString stringWithFormat:@"%d OK", commandCount, CRLF];
+        NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK", commandCount, CRLF];
         NSError *err            = nil;
         
         if (![line hasPrefix:expectedGood]) {
@@ -427,7 +427,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expectedGood  = [NSString stringWithFormat:@"%d OK", commandCount, CRLF];
+        NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK", commandCount, CRLF];
         NSError *err = nil;
         
         if ([lastLine hasPrefix:expectedGood]) {
@@ -453,7 +453,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             return;
         }
         
-        NSString *expectedGood  = [NSString stringWithFormat:@"%d OK", commandCount, CRLF];
+        NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK", commandCount, CRLF];
         NSError *err = nil;
         
         if ([lastLine hasPrefix:expectedGood]) {
@@ -509,7 +509,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         
         // FIXME: look for the copyuid stuff ([COPYUID 1049043632 390 98802])
         
-        NSString *expectedGood  = [NSString stringWithFormat:@"%d OK", commandCount, CRLF];
+        NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK", commandCount, CRLF];
         NSError *err            = nil;
         
         if (![line hasPrefix:expectedGood]) {
@@ -533,9 +533,9 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
         
         NSString *lastLine = [[self responseBytes] lbLastLineOfMultiline];
         
-        NSString *expectedGood = [NSString stringWithFormat:@"%d OK", commandCount, CRLF];
-        NSString *expectedNo   = [NSString stringWithFormat:@"%d NO", commandCount, CRLF];
-        NSString *expectedBad  = [NSString stringWithFormat:@"%d BAD", commandCount, CRLF];
+        NSString *expectedGood = [NSString stringWithFormat:@"%ld OK", commandCount, CRLF];
+        NSString *expectedNo   = [NSString stringWithFormat:@"%ld NO", commandCount, CRLF];
+        NSString *expectedBad  = [NSString stringWithFormat:@"%ld BAD", commandCount, CRLF];
         
         if ([lastLine hasPrefix:expectedNo] || [lastLine hasPrefix:expectedBad]) {
             NSError *err = nil;
@@ -599,7 +599,7 @@ static NSString *LBCAPABILITY = @"CAPABILITY";
             if ([[self responseBytes] length] > atLeastLength) {
                 
                 NSString *lastLine      = [[self responseBytes] lbLastLineOfMultiline];
-                NSString *expectedGood  = [NSString stringWithFormat:@"%d OK FETCH", commandCount, CRLF];
+                NSString *expectedGood  = [NSString stringWithFormat:@"%ld OK FETCH", commandCount, CRLF];
                 //NSString *expectedNo    = [NSString stringWithFormat:@"%d NO", commandCount, CRLF];
                 //NSString *expectedBad   = [NSString stringWithFormat:@"%d BAD", commandCount, CRLF];
                 

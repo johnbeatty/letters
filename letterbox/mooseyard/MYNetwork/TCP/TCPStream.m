@@ -30,7 +30,7 @@ static NSError* fixStreamError( NSError *error );
         _stream = [stream retain];
         _stream.delegate = self;
         [_stream scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSRunLoopCommonModes];
-        LogTo(TCPVerbose,@"%@ initialized; status=%i", self,_stream.streamStatus);
+        LogTo(TCPVerbose,@"%@ initialized; status=%li", self,_stream.streamStatus);
     }
     return self;
 }
@@ -221,7 +221,7 @@ static NSError* fixStreamError( NSError *error );
             [self _gotEOF];
             break;
         default:
-            Warn(@"%@: unknown NSStreamEvent %i",self,streamEvent);
+            Warn(@"%@: unknown NSStreamEvent %li",self,streamEvent);
             break;
     }
     

@@ -196,7 +196,7 @@ NSString* const kBonjourServiceResolvedAddressesNotification = @"BonjourServiceR
                           port: (uint16_t)port
                      txtRecord: (NSData*)txtData
 {
-    LogTo(Bonjour, @"%@: hostname=%@, port=%u, txt=%u bytes", 
+    LogTo(Bonjour, @"%@: hostname=%@, port=%u, txt=%lu bytes", 
           self, hostname, port, txtData.length);
 
     if (port!=_port || !$equal(hostname,_hostname)) {

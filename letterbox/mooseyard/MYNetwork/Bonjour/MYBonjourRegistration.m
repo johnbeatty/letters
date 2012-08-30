@@ -253,7 +253,7 @@ static NSInteger compareData (id data1, id data2, void *context) {
         if (err)
             Warn(@"%@ failed to update TXT (err=%i)", self,err);
         else
-            LogTo(Bonjour,@"%@ updated TXT to %u bytes: %@", self,data.length,data);
+            LogTo(Bonjour,@"%@ updated TXT to %lu bytes: %@", self,data.length,data);
     }
 }
 
@@ -318,7 +318,7 @@ static NSInteger compareData (id data1, id data2, void *context) {
     if (err)
         Warn(@"MYBonjourRegistration: Couldn't update NULL record, err=%i",err);
     else
-        LogTo(DNS, @"MYBonjourRegistration: Set NULL record (%u bytes) %@",
+        LogTo(DNS, @"MYBonjourRegistration: Set NULL record (%lu bytes) %@",
               _nullRecord.length, _nullRecord);
 }
 
