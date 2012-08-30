@@ -407,8 +407,92 @@ NSDictionary* LBParseSimpleFetchResponse(NSString *fetchResponse) {
     return d;
 }
 
+NSString * LBConvertMonthNameToNumber(NSString * month) {
+    if ([@"Jan" isEqualToString:month]) {
+        return @"01";
+    } else if ([@"Feb" isEqualToString:month]) {
+        return @"02";
+    } else if ([@"Mar" isEqualToString:month]) {
+        return @"03";
+    } else if ([@"Apr" isEqualToString:month]) {
+        return @"04";
+    } else if ([@"May" isEqualToString:month]) {
+        return @"05";
+    } else if ([@"Jun" isEqualToString:month]) {
+        return @"06";
+    } else if ([@"Jul" isEqualToString:month]) {
+        return @"07";
+    } else if ([@"Aug" isEqualToString:month]) {
+        return @"08";
+    } else if ([@"Sep" isEqualToString:month]) {
+        return @"09";
+    } else if ([@"Oct" isEqualToString:month]) {
+        return @"10";
+    } else if ([@"Nov" isEqualToString:month]) {
+        return @"11";
+    } else if ([@"Dec" isEqualToString:month]) {
+        return @"12";
+    } else {
+        return @"";
+    }
+}
 
 
+NSDate* LBParseInternalDate(NSString *internalDate) {
+    
+    PKTokenizer *tokenizer = [PKTokenizer tokenizerWithString:internalDate];
+    [tokenizer.wordState setWordChars:NO from:'-' to:'-'];
+    
+    NSString * day = [[tokenizer nextToken] stringValue];
+    [tokenizer nextToken]; // - value
+    NSString * month = [[tokenizer nextToken] stringValue];
+    month = LBConvertMonthNameToNumber(month);
+    NSString * year = [[tokenizer nextToken] stringValue];
+    if ([year hasPrefix:@"-"]) {
+        year = [year stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    }
+    NSString * hour = [[tokenizer nextToken] stringValue];
+    [tokenizer nextToken]; // : value
+    NSString * minutes = [[tokenizer nextToken] stringValue];
+    [tokenizer nextToken]; // : value
+    NSString * seconds = [[tokenizer nextToken] stringValue];
+    NSString * timeZone = [[tokenizer nextToken] stringValue];
+    if ([timeZone length] == 1) {
+        timeZone = [timeZone stringByAppendingString:[[tokenizer nextToken] stringValue]];
+    }
+    
+    NSString * newDateString = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@ %@", year, month, day, hour, minutes, seconds, timeZone];
+    
+    return [NSDate dateWithString:newDateString];
+}
+
+NSDate* LBParseSendDate(NSString *sendDate) {
+    
+    PKTokenizer *tokenizer = [PKTokenizer tokenizerWithString:sendDate];
+    [tokenizer.wordState setWordChars:NO from:'-' to:'-'];
+    
+    [tokenizer nextToken]; // Skip spelled out day
+    [tokenizer nextToken]; // Skip ,
+    
+    NSString * day = [[tokenizer nextToken] stringValue];
+    NSString * month = [[tokenizer nextToken] stringValue];
+    month = LBConvertMonthNameToNumber(month);
+    NSString * year = [[tokenizer nextToken] stringValue];
+    
+    NSString * hour = [[tokenizer nextToken] stringValue];
+    [tokenizer nextToken]; // : value
+    NSString * minutes = [[tokenizer nextToken] stringValue];
+    [tokenizer nextToken]; // : value
+    NSString * seconds = [[tokenizer nextToken] stringValue];
+    NSString * timeZone = [[tokenizer nextToken] stringValue];
+    if ([timeZone length] == 1) {
+        timeZone = [timeZone stringByAppendingString:[[tokenizer nextToken] stringValue]];
+    }
+    
+    NSString * newDateString = [NSString stringWithFormat:@"%@-%@-%@ %@:%@:%@ %@", year, month, day, hour, minutes, seconds, timeZone];
+    
+    return [NSDate dateWithString:newDateString];
+}
 
 
 

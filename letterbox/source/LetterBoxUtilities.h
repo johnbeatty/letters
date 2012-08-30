@@ -42,6 +42,9 @@ NSDictionary* LBSimpleMesageHeaderSliceAndDice(NSData *msgData);
 NSString* LBUUIDString(void);
 NSDictionary* LBParseSimpleFetchResponse(NSString *fetchResponse);
 
+NSDate* LBParseInternalDate(NSString *internalDate);
+NSDate* LBParseSendDate(NSString *sendDate);
+
 #define LBRelease(a)  { [a release]; a = nil; }
 #define LBPrefs [NSUserDefaults standardUserDefaults]
 

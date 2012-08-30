@@ -672,7 +672,6 @@ NSString *LBActivityEndedNotification   = @"LBActivityEndedNotification";
     // this feels icky.
     [cacheDB executeUpdate:@"delete from message where mailbox = ?", mailboxName];
     
-    
     for (NSDictionary *envelopeDict in envelopeList) {
         
         NSString *flags     = [envelopeDict objectForKey:@"FLAGS"];
@@ -683,6 +682,12 @@ NSString *LBActivityEndedNotification   = @"LBActivityEndedNotification";
         
         NSArray *senderArray= [envelopeDict objectForKey:@"sender"];
         NSArray *toArray    = [envelopeDict objectForKey:@"to"];
+
+        NSString * internalDateString = [envelopeDict objectForKey:@"INTERNALDATE"];        
+        NSDate * receivedDate = LBParseInternalDate(internalDateString);
+        
+        NSString * sendDateString = [envelopeDict objectForKey:@"date"];
+        NSDate * sendDate = LBParseSendDate(sendDateString);
         
         LBAddress *sender   = [senderArray lastObject];
         LBAddress *to       = [toArray lastObject];
@@ -692,7 +697,7 @@ NSString *LBActivityEndedNotification   = @"LBActivityEndedNotification";
         BOOL answered       = [flags rangeOfString:@"\\Answered"].location != NSNotFound;
         
         [cacheDB executeUpdate:@"insert into message ( localUUID, serverUID, messageId, inReplyTo, mailbox, subject, fromAddress, toAddress, receivedDate, sendDate, seenFlag, answeredFlag, flags) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-         LBUUIDString(), serverUID, messageId, inReplyTo, mailboxName, subject, [sender email], [to email], [NSDate distantFuture], [NSDate distantPast], [NSNumber numberWithBool:seen], [NSNumber numberWithBool:answered], flags];
+         LBUUIDString(), serverUID, messageId, inReplyTo, mailboxName, subject, [sender email], [to email], receivedDate, sendDate, [NSNumber numberWithBool:seen], [NSNumber numberWithBool:answered], flags];
     }
     
     [cacheDB commit];
